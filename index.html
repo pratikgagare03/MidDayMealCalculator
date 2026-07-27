@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1e293b">
+    <title>MDM Calci - शालेय पोषण आहार गणक</title>
+    <link rel="stylesheet" href="style.css?v=7">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="app-container">
+        <!-- App Header -->
+        <header class="app-header">
+            <div class="header-title">
+                <button id="btn-back" class="header-btn header-home-btn" aria-label="Home Screen">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                        <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                </button>
+                <span id="txt-header-title" data-mr="MDM Calci" data-en="MDM Calci">MDM Calci</span>
+            </div>
+            
+            <div class="header-actions">
+                <!-- Language Toggle -->
+                <button id="btn-lang" class="header-btn" aria-label="Toggle Language">
+                    <span class="lang-text">EN</span>
+                </button>
+                <!-- Dark Mode Toggle -->
+                <button id="btn-theme" class="header-btn" aria-label="Toggle Theme">
+                    <svg id="icon-sun" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                        <circle cx="12" cy="12" r="4"/>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+                    </svg>
+                    <svg id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Current School Name Banner -->
+        <div id="school-banner" class="school-display">
+            शिवछत्रपती माध्यमिक विद्यालय रणखांब
+        </div>
+
+        <!-- Main Body Content -->
+        <main class="app-content">
+            
+            <!-- 1. HOME SCREEN -->
+            <section id="screen-home" class="app-screen active">
+                <div class="home-menu-grid">
+                    <!-- 1 to 5 Calc -->
+                    <button class="menu-card card-primary" onclick="navigateTo('calc-primary')">
+                        <div class="menu-card-icon-container">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <span class="menu-card-title" data-mr="१ ते ५" data-en="1 to 5">१ ते ५</span>
+                    </button>
+                    
+                    <!-- 6 to 8 Calc -->
+                    <button class="menu-card card-upper" onclick="navigateTo('calc-upper')">
+                        <div class="menu-card-icon-container">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <span class="menu-card-title" data-mr="६ ते ८" data-en="6 to 8">६ ते ८</span>
+                    </button>
+
+                    <!-- Recipes -->
+                    <button class="menu-card card-recipe" onclick="navigateTo('recipes')">
+                        <div class="menu-card-icon-container">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+                                <path d="M6 6h10M6 10h10"/>
+                            </svg>
+                        </div>
+                        <span class="menu-card-title" data-mr="पाककृती" data-en="Recipes">पाककृती</span>
+                    </button>
+
+                    <!-- Help -->
+                    <button class="menu-card card-help" onclick="navigateTo('help')">
+                        <div class="menu-card-icon-container">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/>
+                            </svg>
+                        </div>
+                        <span class="menu-card-title" data-mr="मदत व सूचना" data-en="Help">मदत व सूचना</span>
+                    </button>
+
+                    <!-- BMI -->
+                    <button class="menu-card card-bmi" onclick="navigateTo('bmi')">
+                        <div class="menu-card-icon-container">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                            </div>
+                        <span class="menu-card-title" data-mr="बी.एम.आय." data-en="BMI">बी.एम.आय.</span>
+                    </button>
+
+                    <!-- Settings -->
+                    <button class="menu-card card-settings" onclick="navigateTo('settings')">
+                        <div class="menu-card-icon-container">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </div>
+                        <span class="menu-card-title" data-mr="सेटिंग्ज" data-en="Settings">सेटिंग्ज</span>
+                    </button>
+
+                    <!-- About Us (Large) -->
+                    <button class="menu-card menu-card-large" onclick="navigateTo('about')">
+                        <div class="menu-card-icon-container">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <span class="menu-card-title" data-mr="आमच्याविषयी" data-en="About Us">आमच्याविषयी</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 2. PRIMARY CALCULATOR (1 to 5) -->
+            <section id="screen-calc-primary" class="app-screen">
+                <h2 class="section-title primary-theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+                    </svg>
+                    <span data-mr="शापोआ गणक : १ ते ५" data-en="MDM Calci : 1 to 5">शापोआ गणक : १ ते ५</span>
+                </h2>
+
+                <div class="form-group">
+                    <label for="plates-primary" class="form-label" data-mr="ताटांची संख्या (विद्यार्थी उपस्थिती):" data-en="Number of Plates (Student Attendance):">ताटांची संख्या (विद्यार्थी उपस्थिती):</label>
+                    <div class="form-control-row">
+                        <input type="number" id="plates-primary" class="form-input" placeholder="विद्यार्थी संख्या लिहा..." min="0">
+                        <button class="btn btn-primary-theme" onclick="calculateMDM('primary')" data-mr="गणन करा" data-en="Calculate">गणन करा</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="app-table">
+                        <thead>
+                            <tr>
+                                <th data-mr="तपशील" data-en="Details">तपशील</th>
+                                <th data-mr="वजन (कि.ग्रॅ.) / खर्च (रु.)" data-en="Weight (kg) / Cost (Rs)">वजन (कि.ग्रॅ.) / खर्च (रु.)</th>
+                                <th data-mr="वजन (ग्रॅम)" data-en="Weight (gm)">वजन (ग्रॅम)</th>
+                                <th data-mr="प्रमाण (कि.ग्रॅ. / रु.)" data-en="Rate (kg / Rs)">प्रमाण (कि.ग्रॅ. / रु.)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body-primary">
+                            <!-- Dynamic Row Content -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="total-summary-box" id="total-box-primary">
+                    <span class="total-label" data-mr="एकूण खर्च (Cooking Cost):" data-en="Total Cost (Cooking Cost):">एकूण खर्च (Cooking Cost):</span>
+                    <span class="total-value" id="total-val-primary">रु. 0.00</span>
+                </div>
+            </section>
+
+            <!-- 3. UPPER PRIMARY CALCULATOR (6 to 8) -->
+            <section id="screen-calc-upper" class="app-screen">
+                <h2 class="section-title upper-theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+                    </svg>
+                    <span data-mr="शापोआ गणक : ६ ते ८" data-en="MDM Calci : 6 to 8">शापोआ गणक : ६ ते ८</span>
+                </h2>
+
+                <div class="form-group">
+                    <label for="plates-upper" class="form-label" data-mr="ताटांची संख्या (विद्यार्थी उपस्थिती):" data-en="Number of Plates (Student Attendance):">ताटांची संख्या (विद्यार्थी उपस्थिती):</label>
+                    <div class="form-control-row">
+                        <input type="number" id="plates-upper" class="form-input" placeholder="विद्यार्थी संख्या लिहा..." min="0">
+                        <button class="btn btn-upper-theme" onclick="calculateMDM('upper')" data-mr="गणन करा" data-en="Calculate">गणन करा</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="app-table">
+                        <thead>
+                            <tr>
+                                <th data-mr="तपशील" data-en="Details">तपशील</th>
+                                <th data-mr="वजन (कि.ग्रॅ.) / खर्च (रु.)" data-en="Weight (kg) / Cost (Rs)">वजन (कि.ग्रॅ.) / खर्च (रु.)</th>
+                                <th data-mr="वजन (ग्रॅम)" data-en="Weight (gm)">वजन (ग्रॅम)</th>
+                                <th data-mr="प्रमाण (कि.ग्रॅ. / रु.)" data-en="Rate (kg / Rs)">प्रमाण (कि.ग्रॅ. / रु.)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body-upper">
+                            <!-- Dynamic Row Content -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="total-summary-box" id="total-box-upper">
+                    <span class="total-label" data-mr="एकूण खर्च (Cooking Cost):" data-en="Total Cost (Cooking Cost):">एकूण खर्च (Cooking Cost):</span>
+                    <span class="total-value" id="total-val-upper">रु. 0.00</span>
+                </div>
+            </section>
+
+            <!-- 4. RECIPES AND SALARIES (पाककृती) -->
+            <section id="screen-recipes" class="app-screen">
+                <h2 class="section-title recipe-theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+                        <path d="M6 6h10M6 10h10"/>
+                    </svg>
+                    <span data-mr="शापोआ : पाककृती व नियोजन" data-en="MDM : Recipes & Planning">शापोआ : पाककृती व नियोजन</span>
+                </h2>
+
+                <div class="tab-container">
+                    <button class="tab-btn active" onclick="switchTab(this, 'tab-weekly-menu')" data-mr="पाककृती तपशील" data-en="Weekly Menu">पाककृती तपशील</button>
+                    <button class="tab-btn" onclick="switchTab(this, 'tab-supp-diet')" data-mr="पूरक आहार" data-en="Supp. Diet">पूरक आहार</button>
+                    <button class="tab-btn" onclick="switchTab(this, 'tab-helper-salary')" data-mr="मदतनीस मानधन" data-en="Helper Salary">मदतनीस मानधन</button>
+                </div>
+
+                <!-- Tab 1: Weekly Recipe Details -->
+                <div id="tab-weekly-menu" class="tab-pane active">
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 60px;" data-mr="क्र." data-en="No.">क्र.</th>
+                                    <th style="width: 100px;" data-mr="वार" data-en="Day">वार</th>
+                                    <th data-mr="पाककृती तपशील" data-en="Recipe Description">पाककृती तपशील</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recipe-list-body">
+                                <!-- Dynamic JS contents -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Supplementary Diet Planning -->
+                <div id="tab-supp-diet" class="tab-pane">
+                    <h3 class="form-label" style="font-weight:700; margin-bottom:10px;" id="supp-day-title">बुधवार पूरक आहार प्रकार</h3>
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 60px;" data-mr="क्र." data-en="No.">क्र.</th>
+                                    <th style="width: 100px;" data-mr="बुधवार" data-en="Week" id="th-supp-day">बुधवार</th>
+                                    <th data-mr="पूरक आहार प्रकार" data-en="Supplementary Diet Type">पूरक आहार प्रकार</th>
+                                </tr>
+                            </thead>
+                            <tbody id="supp-diet-body">
+                                <!-- Dynamic JS contents -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Helper Salaries Table -->
+                <div id="tab-helper-salary" class="tab-pane">
+                    <h3 class="form-label" style="font-weight:700; margin-bottom:10px;" data-mr="मदतनिस पदे व मानधन रचना" data-en="Helper Posts & Honorarium Structure">मदतनिस पदे व मानधन रचना</h3>
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 60px;" data-mr="क्र." data-en="No.">क्र.</th>
+                                    <th data-mr="पटसंख्या" data-en="Student Strength">पटसंख्या</th>
+                                    <th style="width: 70px; text-align: center;" data-mr="पदे" data-en="Posts">पदे</th>
+                                    <th data-mr="मानधन (मासिक)" data-en="Salary (Monthly)">मानधन (मासिक)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>१.</td>
+                                    <td>१ ते २५ (1 to 25)</td>
+                                    <td style="text-align: center;">१</td>
+                                    <td class="weight-cell" data-mr="१००० रुपये" data-en="Rs 1000">१००० रुपये</td>
+                                </tr>
+                                <tr>
+                                    <td>२.</td>
+                                    <td>२६ ते १९९ (26 to 199)</td>
+                                    <td style="text-align: center;">२</td>
+                                    <td class="weight-cell" data-mr="२००० रुपये" data-en="Rs 2000">२००० रुपये</td>
+                                </tr>
+                                <tr>
+                                    <td>३.</td>
+                                    <td>२०० ते २९९ (200 to 299)</td>
+                                    <td style="text-align: center;">३</td>
+                                    <td class="weight-cell" data-mr="३००० रुपये" data-en="Rs 3000">३००० रुपये</td>
+                                </tr>
+                                <tr>
+                                    <td>४.</td>
+                                    <td>३०० ते ३९९ (300 to 399)</td>
+                                    <td style="text-align: center;">४</td>
+                                    <td class="weight-cell" data-mr="४००० रुपये" data-en="Rs 4000">४००० रुपये</td>
+                                </tr>
+                                <tr>
+                                    <td>५.</td>
+                                    <td>४०० ते ४९९ (400 to 499)</td>
+                                    <td style="text-align: center;">५</td>
+                                    <td class="weight-cell" data-mr="५००० रुपये" data-en="Rs 5000">५००० रुपये</td>
+                                </tr>
+                                <tr>
+                                    <td>६.</td>
+                                    <td>५०० ते ५९९ (500 to 599)</td>
+                                    <td style="text-align: center;">६</td>
+                                    <td class="weight-cell" data-mr="६००० रुपये" data-en="Rs 6000">६००० रुपये</td>
+                                </tr>
+                                <tr>
+                                    <td>७.</td>
+                                    <td>६०० ते ६९९ (600 to 699)</td>
+                                    <td style="text-align: center;">७</td>
+                                    <td class="weight-cell" data-mr="७००० रुपये" data-en="Rs 7000">७००० रुपये</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. BMI CALCULATOR -->
+            <section id="screen-bmi" class="app-screen">
+                <h2 class="section-title bmi-theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                    </svg>
+                    <span data-mr="बी.एम.आय. (शरीरमान सूचकांक)" data-en="BMI Calculator">बी.एम.आय. (शरीरमान सूचकांक)</span>
+                </h2>
+
+                <div class="form-group">
+                    <label for="bmi-weight" class="form-label" data-mr="वजन (किग्रॅ):" data-en="Weight (kg):">वजन (किग्रॅ):</label>
+                    <input type="number" id="bmi-weight" class="form-input" placeholder="उदा. ६२" step="0.1" min="1">
+                </div>
+
+                <div class="form-group">
+                    <label for="bmi-height" class="form-label" data-mr="उंची (सेंमी):" data-en="Height (cm):">उंची (सेंमी):</label>
+                    <input type="number" id="bmi-height" class="form-input" placeholder="उदा. १५५" step="0.1" min="1">
+                </div>
+
+                <button class="btn btn-block btn-bmi-theme" onclick="calculateBMI()" data-mr="Calculate / मोजा" data-en="Calculate BMI">Calculate / मोजा</button>
+
+                <!-- BMI Result card -->
+                <div id="bmi-result" class="bmi-result-card">
+                    <div data-mr="तुमचे BMI" data-en="Your BMI">तुमचे BMI</div>
+                    <div id="bmi-val" class="bmi-value">22.5</div>
+                    <div id="bmi-status" class="bmi-status">सामान्य</div>
+                </div>
+
+                <!-- Standard limits table -->
+                <div class="table-responsive" style="margin-top:20px;">
+                    <table class="app-table bmi-table">
+                        <thead>
+                            <tr>
+                                <th>BMI</th>
+                                <th data-mr="विवरण" data-en="Classification">विवरण</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="bmi-row-under">
+                                <td class="weight-cell">१८.५ पेक्षा कमी (< 18.5)</td>
+                                <td data-mr="कमी वजन" data-en="Underweight">कमी वजन</td>
+                            </tr>
+                            <tr id="bmi-row-normal">
+                                <td class="weight-cell">१८.५ ते २४.९ (18.5 - 24.9)</td>
+                                <td data-mr="सामान्य" data-en="Normal">सामान्य</td>
+                            </tr>
+                            <tr id="bmi-row-over">
+                                <td class="weight-cell">२५.० ते २९.९ (25.0 - 29.9)</td>
+                                <td data-mr="सामान्यापेक्षा जास्त वजन" data-en="Overweight">सामान्यापेक्षा जास्त वजन</td>
+                            </tr>
+                            <tr id="bmi-row-obese">
+                                <td class="weight-cell">३०.० पेक्षा जास्त (≥ 30.0)</td>
+                                <td data-mr="स्थूल" data-en="Obese">स्थूल</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-secondary);" data-mr="स्थूलतेचे प्रमाण BMI द्वारे मोजले जाते. BMI नुसार व्यक्तीचे वजन व उंची यांचे प्रमाण तपासले जाते. व्यक्तीचे वजन त्याच्याच उंचीच्या प्रमाणात आहे किंवा नाही याची माहिती मिळते." data-en="Obesity level is measured by BMI. According to BMI, the ratio of a person's weight and height is checked. This gives information about whether a person's weight is in proportion to their height or not.">
+                    स्थूलतेचे प्रमाण BMI द्वारे मोजले जाते. BMI नुसार व्यक्तीचे वजन व उंची यांचे प्रमाण तपासले जाते. व्यक्तीचे वजन त्याच्याच उंचीच्या प्रमाणात आहे किंवा नाही याची माहिती मिळते.
+                </p>
+            </section>
+
+            <!-- 6. SETTINGS (सेटिंग्ज) -->
+            <section id="screen-settings" class="app-screen">
+                <h2 class="section-title settings-theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    <span data-mr="सेटिंग्ज : प्रमाण व रचना" data-en="Settings : Config & Rates">सेटिंग्ज : प्रमाण व रचना</span>
+                </h2>
+
+                <div class="tab-container">
+                    <button class="tab-btn active" onclick="switchTab(this, 'tab-set-rates')" data-mr="धान्य/खर्च प्रमाण" data-en="Rates">धान्य/खर्च प्रमाण</button>
+                    <button class="tab-btn" onclick="switchTab(this, 'tab-set-menu')" data-mr="नियोजन मेनू" data-en="Menu">नियोजन मेनू</button>
+                    <button class="tab-btn" onclick="switchTab(this, 'tab-set-general')" data-mr="सामान्य" data-en="General">सामान्य</button>
+                </div>
+
+                <!-- Settings Tab 1: Rates configuration -->
+                <div id="tab-set-rates" class="tab-pane active">
+                    <div class="settings-row-header">
+                        <span data-mr="पदार्थ / खर्च" data-en="Ingredient">पदार्थ / खर्च</span>
+                        <span data-mr="१ ते ५" data-en="1 to 5">१ ते ५</span>
+                        <span data-mr="६ ते ८" data-en="6 to 8">६ ते ८</span>
+                    </div>
+                    <div id="settings-ingredients-list" class="settings-list">
+                        <!-- Dynamic generated fields of rates -->
+                    </div>
+                </div>
+
+                <!-- Settings Tab 2: Menu configuration -->
+                <div id="tab-set-menu" class="tab-pane">
+                    <h3 class="form-label" style="font-weight:700; margin-bottom:10px;" data-mr="वारानुसार आहार मेनू" data-en="Weekly Menu Settings">वारानुसार आहार मेनू</h3>
+                    <div id="settings-menu-list" class="settings-list">
+                        <!-- Dynamic weekly menu edit rows -->
+                    </div>
+
+                    <h3 class="form-label" style="font-weight:700; margin-top:20px; margin-bottom:10px;" data-mr="पूरक आहार (नियोजन प्रकार)" data-en="Supplementary Diet Menu">पूरक आहार (नियोजन प्रकार)</h3>
+                    <div id="settings-supp-list" class="settings-list">
+                        <!-- Dynamic supplementary menu edit rows -->
+                    </div>
+                </div>
+
+                <!-- Settings Tab 3: General Configuration (School Name, Day of Supplementary diet) -->
+                <div id="tab-set-general" class="tab-pane">
+                    <div class="form-group">
+                        <label for="input-school-name" class="form-label" data-mr="शाळेचे नाव (School Name):" data-en="School Name:">शाळेचे नाव (School Name):</label>
+                        <input type="text" id="input-school-name" class="form-input" placeholder="तुमच्या शाळेचे नाव लिहा...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="input-supp-day" class="form-label" data-mr="पूरक आहार देण्याचा वार (Supplementary diet day):" data-en="Supplementary Diet Day:">पूरक आहार देण्याचा वार (Supplementary diet day):</label>
+                        <input type="text" id="input-supp-day" class="form-input" placeholder="उदा. बुधवार">
+                    </div>
+                </div>
+
+                <!-- Save/Reset Actions -->
+                <div class="button-row">
+                    <button class="btn btn-secondary" onclick="restoreDefaultSettings()" data-mr="मूळ सेटिंग्ज" data-en="Reset">मूळ सेटिंग्ज</button>
+                    <button class="btn btn-settings-theme" onclick="saveSettings()" data-mr="सेव्ह करा (Save)" data-en="Save Settings">सेव्ह करा (Save)</button>
+                </div>
+            </section>
+
+            <!-- 7. HELP & INSTRUCTIONS (मदत व सूचना) -->
+            <section id="screen-help" class="app-screen">
+                <h2 class="section-title help-theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/>
+                    </svg>
+                    <span data-mr="मदत व सूचना" data-en="Help & Instructions">मदत व सूचना</span>
+                </h2>
+
+                <div class="help-section">
+                    <h3 class="help-title" data-mr="टीप :" data-en="Please Note:">टीप :</h3>
+                    <ul class="help-list">
+                        <li data-mr="प्रत्येक जिल्ह्यातील प्रमाण वेगळे आहे त्यामुळे प्रमाण बदलण्याची सोय या कॅल्क्युलेटरमध्ये ठेवली आहे." data-en="The meal scale varies by district, so a customizable settings interface is provided.">प्रत्येक जिल्ह्यातील प्रमाण वेगळे आहे त्यामुळे प्रमाण बदलण्याची सोय या कॅल्क्युलेटरमध्ये ठेवली आहे.</li>
+                        <li data-mr="प्रत्येक घटकाचे प्रमाण स्वतः चेक करावे." data-en="Verify the defaults against your local government guidelines.">प्रत्येक घटकाचे प्रमाण स्वतः चेक करावे.</li>
+                        <li data-mr="प्रमाण वेगळे असल्यास बदलावे व सेव करावे." data-en="If scales differ, modify them on the Settings screen and click Save.">प्रमाण वेगळे असल्यास बदलावे व सेव करावे.</li>
+                        <li data-mr="हे कॅल्क्युलेटर आपल्या जबाबदारीवर वापरावे." data-en="Use this calculator at your own discretion.">हे कॅल्क्युलेटर आपल्या जबाबदारीवर वापरावे.</li>
+                        <li style="font-weight: 700; list-style: none; margin-top:5px; font-family: var(--font-english); font-size: 0.85rem;">Last Update : 29 Dec 2015 1:49 AM</li>
+                    </ul>
+                </div>
+
+                <div class="help-section">
+                    <h3 class="help-title" data-mr="हे कॅल्क्युलेटर कसे वापरावे?" data-en="How to use the calculator?">हे कॅल्क्युलेटर कसे वापरावे?</h3>
+                    <ul class="help-list">
+                        <li data-mr="'१ ते ५' व '६ ते ८' साठी वेगळी पेज आहेत. योग्य ती निवड करावी." data-en="Separate pages are provided for '1 to 5' (Primary) and '6 to 8' (Upper Primary) classes. Choose accordingly.">'१ ते ५' व '६ ते ८' साठी वेगळी पेज आहेत. योग्य ती निवड करावी.</li>
+                        <li data-mr="आपल्या शाळेतील उपस्थित विद्यार्थी संख्या 'ताटांची संख्या' येथे लिहा व 'गणन करा' या बटनावर क्लिक करा." data-en="Enter the number of students present in the 'Number of Plates' field and click 'Calculate'.">आपल्या शाळेतील उपस्थित विद्यार्थी संख्या 'ताटांची संख्या' येथे लिहा व 'गणन करा' या बटनावर क्लिक करा.</li>
+                        <li data-mr="आजच्या सर्व धान्यांच्या खर्चाचे वजन तुम्ही सेटिंग्जमध्ये टाकलेल्या प्रमाणात मिळेल." data-en="You will receive weight results of all grains and costs according to configuration.">आजच्या सर्व धान्यांच्या खर्चाचे वजन तुम्ही सेटिंग्जमध्ये टाकलेल्या प्रमाणात मिळेल.</li>
+                        <li data-mr="पूरक आहार व मदतनीस मानधन तक्ता 'पाककृती' मध्ये आहे. पूरक आहार देण्याचा वार व घटक तुम्ही सेटिंग्ज मधून बदलू शकता." data-en="Helper salaries and recipes are displayed under the 'Recipes' page. Customize supplementary day and menus in Settings.">पूरक आहार व मदतनीस मानधन तक्ता 'पाककृती' मध्ये आहे. पूरक आहार देण्याचा वार व घटक तुम्ही सेटिंग्ज मधून बदलू शकता.</li>
+                    </ul>
+                </div>
+
+                <div class="help-section">
+                    <h3 class="help-title" data-mr="धान्य खर्चाचे प्रमाण बदलून कसे SAVE करावे?" data-en="How to save scale settings?">धान्य खर्चाचे प्रमाण बदलून कसे SAVE करावे?</h3>
+                    <ul class="help-list">
+                        <li data-mr="ज्या धान्याचे प्रमाण बदलायचे आहे, त्यासाठी सेटिंग्ज या मेनूतून 'धान्य/खर्च प्रमाण' या पेजवर जा. १ ते ५ किंवा ६ ते ८ मधील प्रमाण बॉक्समध्ये नवीन किंमत लिहा." data-en="Go to Settings -> 'Rates'. Modify the numeric fields for primary (1 to 5) or upper primary (6 to 8).">ज्या धान्याचे प्रमाण बदलायचे आहे, त्यासाठी सेटिंग्ज या मेनूतून 'धान्य/खर्च प्रमाण' या पेजवर जा. १ ते ५ किंवा ६ ते ८ मधील प्रमाण बॉक्समध्ये नवीन किंमत लिहा.</li>
+                        <li data-mr="तुम्ही किलोग्राम अथवा ग्रॅम किंवा रुपये यासाठी योग्य किंमती लिहा." data-en="Use appropriate values representing kilograms, grams, or Indian Rupees.">तुम्ही किलोग्राम अथवा ग्रॅम किंवा रुपये यासाठी योग्य किंमती लिहा.</li>
+                        <li data-mr="खाली 'Save Settings (सेव्ह करा)' बटणावर क्लिक करा. प्रमाण सेव झाल्याचा निरोप येईल." data-en="Click the Save button. You will get a success toast notification.">खाली 'Save Settings (सेव्ह करा)' बटणावर क्लिक करा. प्रमाण सेव झाल्याचा निरोप येईल.</li>
+                        <li data-mr="हे ॲप्लिकेशन बंद केले तरी या पेजवर केलेले बदल जतन राहतील." data-en="Settings are permanently cached, so you do not need to enter them each time.">हे ॲप्लिकेशन बंद केले तरी या पेजवर केलेले बदल जतन राहतील.</li>
+                        <li data-mr="नवीन पदार्थ जोडण्यासाठी 'NA' लिहिलेल्या ठिकाणी तुम्ही तुमचे नाव व प्रमाण लिहून सेव करू शकता." data-en="Add new ingredients by editing fields labeled 'NA' at the bottom of the list.">नवीन पदार्थ जोडण्यासाठी 'NA' लिहिलेल्या ठिकाणी तुम्ही तुमचे नाव व प्रमाण लिहून सेव करू शकता.</li>
+                        <li data-mr="एखादा मेनू नको असल्यास पहिल्या रकान्यात 'NA' लिहावे." data-en="If you wish to remove or hide an ingredient, write 'NA' in its name field.">एखादा मेनू नको असल्यास पहिल्या रकान्यात 'NA' लिहावे.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 8. ABOUT US (आमच्याविषयी) -->
+            <section id="screen-about" class="app-screen">
+                <div class="about-card">
+                    <div class="about-logo">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="6 2 18 2 18 6 6 6 6 2"/>
+                            <rect width="20" height="14" x="2" y="6" rx="2"/>
+                            <path d="M12 17h.01"/>
+                        </svg>
+                    </div>
+                    <h2 class="about-title">MDM Calci</h2>
+                    <p class="about-subtitle" data-mr="आवृत्ती २.५ (Android १६+ सुसंगत)" data-en="Version 2.5 (Android 16+ Compatible)">आवृत्ती २.५ (Android १६+ सुसंगत)</p>
+                    
+                    <div class="about-info-group">
+                        <div class="about-info-row">
+                            <span class="about-info-label" data-mr="विकसक" data-en="Developer">विकसक</span>
+                            <span class="about-info-val">Pratik Gagare</span>
+                        </div>
+                        <div class="about-info-row">
+                            <span class="about-info-label" data-mr="भ्रमणध्वनी" data-en="Mobile">भ्रमणध्वनी</span>
+                            <span class="about-info-val">+91 9421329901</span>
+                        </div>
+                        <div class="about-info-row">
+                            <span class="about-info-label" data-mr="ईमेल" data-en="Email">ईमेल</span>
+                            <span class="about-info-val">pratikgagare302002@gmail.com</span>
+                        </div>
+                    </div>
+
+                    <div class="about-links">
+                        <a href="mailto:pratikgagare302002@gmail.com" class="about-link-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="20" height="16" x="2" y="4" rx="2"/>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                            </svg>
+                            <span data-mr="ईमेल पाठवा" data-en="Send Email">ईमेल पाठवा</span>
+                        </a>
+                        <a href="https://wa.me/919421329901" target="_blank" class="about-link-btn" style="background-color: #25d366; color: white;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                            </svg>
+                            <span data-mr="व्हॉट्सॲप मेसेज" data-en="WhatsApp Message">व्हॉट्सॲप मेसेज</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Toast Notifications -->
+        <div id="toast" class="toast-container">सेटिंग्ज जतन केल्या!</div>
+    </div>
+
+    <!-- Application Script -->
+    <script src="app.js?v=7"></script>
+</body>
+</html>

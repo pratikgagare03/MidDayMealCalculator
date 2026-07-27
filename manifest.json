@@ -1,0 +1,17 @@
+{
+  "name": "MDM Calci",
+  "short_name": "MDM Calci",
+  "description": "शालेय पोषण आहार कॅल्क्युलेटर - Mid-Day Meal Calculator",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f3f4f6",
+  "theme_color": "#1e293b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
