@@ -77,12 +77,16 @@ The wrapper project is pre-configured with dependencies. You can build it in two
 5.  Find the output APK at:
     `android/app/build/outputs/apk/debug/app-debug.apk`
 
-### Method 2: Command Line Compilation (Local SDK)
-If you have Java 17 and Android SDK set up, compile using:
+### Method 2: Command Line Compilation (Auto-Setup Script)
+A shell script `build_apk.sh` is provided in the project root to automatically download and set up the Gradle build-system, Android Command-Line tools, and compile the APK in one command:
 ```bash
-cd mdm-calci-app/android
-./gradlew assembleDebug
+# Make script executable (if not already)
+chmod +x build_apk.sh
+
+# Run the build script
+./build_apk.sh
 ```
+This script will download the Gradle binary and standard Android SDK build-tools into your home directory (`$HOME`), accept SDK licenses, download the Platform 34 components, and output the compiled APK.
 
 ---
 
